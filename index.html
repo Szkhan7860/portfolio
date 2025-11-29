@@ -3,211 +3,333 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Portfolio of Mohd Shahnawaz — B.Pharm student with a passion for web development and creative digital projects." />
   <title>Mohd Shahnawaz — Portfolio</title>
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     :root {
-      --bg:#ffffff;
-      --card:#ffffff;
-      --muted:#6b7280;
-      --text:#0f172a;
-      --accent:#0b74ff;
-      --radius:14px;
-      --shadow:0 8px 24px rgba(15,23,42,0.06);
-      --fade: opacity .6s ease, transform .6s ease;
-    }
-    [data-theme="dark"] {
-      --bg:#0b1220;
-      --card:#0f172a;
-      --muted:#9aa6b2;
-      --text:#e6eef8;
-      --accent:#4da6ff;
-      --shadow:0 10px 30px rgba(2,6,23,0.6);
+      --bg: #f9fafb;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --accent: #2563eb;
     }
 
-    * {margin:0;padding:0;box-sizing:border-box;}
+    [data-theme="dark"] {
+      --bg: #0b1220;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+    }
 
     body {
-      font-family:'Inter',sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.6;
-      opacity:0;
-      animation:fadePage .7s ease forwards;
-      transition:background .35s ease, color .35s ease;
-    }
-    @keyframes fadePage {to {opacity:1;}}
-
-    .container {max-width:1000px;margin:40px auto;padding:28px;}
-
-    /* Header */
-    .site-header {
-      display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:34px;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .3s ease, color .3s ease;
     }
 
-    /* Avatar — premium version */
-    .avatar {
-      width:140px;height:140px;border-radius:50%;overflow:hidden;
-      position:relative;
-      cursor:pointer;
-      transition:transform .6s ease;
-    }
-    .avatar::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:50%;
-      background:radial-gradient(circle at center, rgba(0,153,255,0.25), transparent 75%);
-      filter:blur(12px);
-      z-index:-1;
-      animation:glow 4s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-      from {transform:scale(1);}
-      to {transform:scale(1.08);}
-    }
-    .avatar img {
-      width:100%;height:100%;object-fit:cover;
-      transition:transform .5s ease;
-    }
-    .avatar:hover img {transform:scale(1.06);}
-    .avatar.enlarged {transform:scale(1.35);}
-
-    /* Parallax */
-    .avatar.parallax {transform:translateY(var(--py));}
-
-    .name-title {
-      font-size:28px;font-weight:900;margin-top:14px;
-      background:linear-gradient(90deg,var(--accent),#00b4ff);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    }
-    .tagline {color:var(--muted);font-size:15px;margin-top:4px;}
+    /* Page Fade-in */
+    body {opacity: 0; animation: fadeIn .7s ease forwards;}
+    @keyframes fadeIn {to {opacity: 1;}}
 
     /* Theme Toggle */
     .theme-toggle {
-      position:fixed;top:18px;right:18px;width:46px;height:46px;
-      background:var(--card);border:none;border-radius:50%;
-      box-shadow:var(--shadow);cursor:pointer;display:grid;place-items:center;
-      transition:transform .25s ease, background .35s ease;
-      z-index:999;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
     }
-    .theme-toggle:hover {transform:scale(1.12);}
+    .theme-toggle i {color: var(--accent);}
 
-    /* Card */
-    .card {
-      background:var(--card);border-radius:var(--radius);padding:22px;
-      box-shadow:var(--shadow);margin-bottom:28px;
-      border:1px solid rgba(0,0,0,0.04);
-      opacity:0;transform:translateY(20px);
-      transition:var(--fade);
+    /* Layout */
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 22px;
     }
-    .card.visible {opacity:1;transform:translateY(0);}
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      margin: auto;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      transition: transform .4s ease;
+      cursor: pointer;
+    }
+    .avatar:hover {transform: scale(1.05);}
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .name {
+      font-size: 32px;
+      font-weight: 800;
+      margin-top: 18px;
+      background: linear-gradient(90deg, var(--accent), #4f8cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtext {
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    section {margin-bottom: 60px;}
+
+    /* Section Titles */
+    h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    /* Smooth reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* Skills */
-    .skills-grid {display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
     .skill {
-      min-width:120px;padding:10px 12px;border-radius:10px;
-      background:rgba(15,23,42,0.04);display:flex;gap:10px;align-items:center;
-      transition:transform .25s ease, box-shadow .25s ease;
+      padding: 8px 14px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      transition: transform .2s ease;
     }
-    .skill:hover {
-      transform:translateY(-6px);
-      box-shadow:0 6px 20px rgba(0,0,0,0.1);
-    }
+    [data-theme="dark"] .skill {background: rgba(255,255,255,0.08);}
+    .skill:hover {transform: translateY(-4px);}
 
     /* Projects */
-    .projects-grid {
-      display:grid;grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
-      gap:16px;
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
     }
-    .project-card {
-      padding:18px;border-radius:12px;background:rgba(255,255,255,0.03);
-      border:1px solid rgba(0,0,0,0.05);
-      transition:transform .3s ease, box-shadow .3s ease;
+
+    .project {
+      padding: 20px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.04);
+      transition: transform .25s ease, box-shadow .25s ease;
     }
-    .project-card:hover {
-      transform:translateY(-10px);
-      box-shadow:0 12px 32px rgba(0,0,0,0.12);
+    [data-theme="dark"] .project {background: rgba(255,255,255,0.06);}
+
+    .project:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
     }
-    .project-card p {font-size:14px;color:var(--muted);}
+
+    .project-title {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .project p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
 
     .btn {
-      margin-top:8px;padding:8px 12px;border-radius:10px;
-      border:1.5px solid var(--accent);
-      color:var(--accent);font-weight:600;font-size:13px;
-      text-decoration:none;
-      transition:background .25s ease, color .25s ease;
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 14px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform .2s ease;
     }
-    .btn:hover {background:var(--accent);color:#fff;}
-
-    /* Contact */
-    .socials {display:flex;gap:10px;margin-top:12px;}
-    .socials a {
-      width:42px;height:42px;border-radius:10px;display:grid;place-items:center;
-      text-decoration:none;
-      background:rgba(15,23,42,0.06);
-      color:var(--accent);
-      transition:transform .25s ease;
-    }
-    .socials a:hover {transform:translateY(-6px);}
+    .btn:hover {transform: translateY(-4px);}
 
     /* Education */
-    .edu-item {margin-bottom:14px;}
-    .edu-item .title {font-weight:700;font-size:16px;}
-    .edu-item .inst {font-size:14px;color:var(--muted);}
-    .edu-item .year {font-size:13px;color:var(--accent);margin-top:3px;}
+    .edu-item {margin-bottom: 18px;}
+    .edu-title {font-weight: 700;font-size: 16px;}
+    .edu-inst {font-size: 14px;color: var(--muted);}
+    .edu-year {font-size: 14px;color: var(--accent);margin-top: 2px;}
 
-    footer {text-align:center;color:var(--muted);margin-top:40px;font-size:13px;}
+    /* Contact Icons */
+    .contact-links a {
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 14px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .socials a {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.06);
+      color: var(--accent);
+      transition: transform .25s ease;
+    }
+    [data-theme="dark"] .socials a {background: rgba(255,255,255,0.08);}
+    .socials a:hover {transform: translateY(-5px);}
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
   </style>
 </head>
+
 <body>
 
-<button id="themeToggle" class="theme-toggle"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
+<!-- Theme Toggle -->
+<button id="themeToggle" class="theme-toggle">
+  <i id="themeIcon" class="fa-solid fa-moon"></i>
+</button>
 
 <div class="container">
 
   <!-- Header -->
-  <header class="site-header">
-    <div class="avatar" id="avatar"><img src="photo.png" /></div>
-    <h1 class="name-title">Mohd Shahnawaz</h1>
-    <p class="tagline">B.Pharm Student • Web Developer (Hobbyist)</p>
+  <header class="header reveal">
+    <div class="avatar">
+      <img src="photo.png" alt="Profile Photo">
+    </div>
+
+    <div class="name">Mohd Shahnawaz</div>
+    <div class="subtext">B.Pharm Student • Web Developer (Hobbyist)</div>
   </header>
 
-  <!-- Intro -->
-  <section class="card reveal">
+  <!-- About -->
+  <section class="reveal">
+    <h2>About Me</h2>
     <p>
       I’m Mohd Shahnawaz, a B.Pharm student at Shambhunath Institute of Pharmacy (2025–2029).
-      I enjoy building small web projects and exploring how technology can make everyday tasks easier.
-      Pharmacy is my main path, but coding, interfaces, and AI tools inspire me creatively.
+      I enjoy building small web projects and learning how technology can make everyday tasks easier.
+      I’m interested in combining pharmacy knowledge with digital tools, interfaces, and AI.
     </p>
+  </section>
 
-    <div style="margin-top:14px;font-size:13px;color:var(--muted);">Skills</div>
+  <!-- Skills -->
+  <section class="reveal">
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="skill">HTML</div>
+      <div class="skill">CSS</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">React (Basic)</div>
+      <div class="skill">GitHub</div>
+      <div class="skill">Tally & Accounting</div>
+      <div class="skill">AI & Python (Basics)</div>
+      <div class="skill">DTP & Documentation</div>
+    </div>
+  </section>
 
-    <div class="skills-grid">
-      <div class="skill"><i class="fa-brands fa-html5" style="color:#e34c26;"></i><div class="name">HTML</div></div>
-      <div class="skill"><i class="fa-brands fa-css3-alt" style="color:#2965f1;"></i><div class="name">CSS</div></div>
-      <div class="skill"><i class="fa-brands fa-js" style="color:#f7df1e;"></i><div class="name">JavaScript</div></div>
-      <div class="skill"><i class="fa-brands fa-react" style="color:#61dafb;"></i><div class="name">React (Basic)</div></div>
-      <div class="skill"><i class="fa-brands fa-github"></i><div class="name">GitHub</div></div>
-      <div class="skill"><i class="fa-solid fa-database"></i><div class="name">Tally & Accounting</div></div>
-      <div class="skill"><i class="fa-solid fa-robot"></i><div class="name">AI & Python (Basics)</div></div>
-      <div class="skill"><i class="fa-solid fa-language"></i><div class="name">DTP & Documentation</div></div>
+  <!-- Projects -->
+  <section class="reveal">
+    <h2>Projects</h2>
+
+    <div class="projects">
+
+      <div class="project">
+        <div class="project-title">Number & Aadhaar Details Finder</div>
+        <p>A simple practice tool made to improve form handling and UI development.</p>
+        <a class="btn" href="https://szkhan7860.github.io/details" target="_blank">Visit</a>
+      </div>
+
+      <div class="project">
+        <div class="project-title">Pharmatech AI</div>
+        <p>A medicine search mini-app. An early attempt to combine pharmacy knowledge with web development.</p>
+        <a class="btn" href="#" target="_blank">Visit</a>
+      </div>
+
+      <div class="project">
+        <div class="project-title">More Coming Soon</div>
+        <p>New projects will be added here.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="reveal">
+    <h2>Education</h2>
+
+    <div class="edu-item">
+      <div class="edu-title">Bachelor of Pharmacy</div>
+      <div class="edu-inst">Shambhunath Institute of Pharmacy, Prayagraj</div>
+      <div class="edu-year">2025 – 2029</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-title">Diploma in Computer Applications, Business Accounting & Multilingual DTP</div>
+      <div class="edu-inst">NCPUL – NIELIT (Govt. of India)</div>
+      <div class="edu-year">Completed 2025 • Grade B</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-title">Class 12 (ISC)</div>
+      <div class="edu-inst">CISCE</div>
+      <div class="edu-year">2025</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-title">Class 10 (ICSE)</div>
+      <div class="edu-inst">CISCE</div>
+      <div class="edu-year">2023</div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section class="card reveal" id="contact">
-    <strong>Contact</strong>
-    <div style="margin-top:10px;">
-      <div><i class="fa-solid fa-envelope"></i> <a href="mailto:szcamps@gmail.com">szcamps@gmail.com</a></div>
-      <div><i class="fa-brands fa-github"></i> <a href="https://github.com/szkhan7860" target="_blank">github.com/szkhan7860</a></div>
-      <div><i class="fa-brands fa-instagram"></i> <a href="https://www.instagram.com/Shahnawaz._.2006/" target="_blank">@Shahnawaz._.2006</a></div>
-      <div><i class="fa-brands fa-telegram"></i> <a href="http://telegram.me/Sukuna_Verified" target="_blank">Sukuna_Verified</a></div>
+  <section class="reveal">
+    <h2>Contact</h2>
+
+    <div class="contact-links">
+      <a href="mailto:szcamps@gmail.com"><i class="fa-solid fa-envelope"></i> szcamps@gmail.com</a>
+      <a href="https://github.com/szkhan7860" target="_blank"><i class="fa-brands fa-github"></i> github.com/szkhan7860</a>
+      <a href="https://www.instagram.com/Shahnawaz._.2006/" target="_blank"><i class="fa-brands fa-instagram"></i> @Shahnawaz._.2006</a>
+      <a href="http://telegram.me/Sukuna_Verified" target="_blank"><i class="fa-brands fa-telegram"></i> Sukuna_Verified</a>
     </div>
 
     <div class="socials">
@@ -217,104 +339,43 @@
     </div>
   </section>
 
-  <!-- Projects -->
-  <section class="card reveal">
-    <h2>Projects</h2>
-
-    <div class="projects-grid">
-
-      <article class="project-card">
-        <h3>Number & Aadhaar Details Finder</h3>
-        <p>A simple learning tool that displays number and Aadhaar-related information. Built to practice logic, form handling, and UI fundamentals.</p>
-        <a class="btn" href="https://szkhan7860.github.io/details" target="_blank">Visit</a>
-      </article>
-
-      <article class="project-card">
-        <h3>Pharmatech AI</h3>
-        <p>A small pharmaceutical web app that lets users search for medicines and explore their details. An early experiment combining pharmacy and web development.</p>
-        <a class="btn" href="#" target="_blank">Visit</a>
-      </article>
-
-      <article class="project-card">
-        <h3>More Coming Soon</h3>
-        <p>New projects will be added here.</p>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- Education -->
-  <section class="card reveal">
-    <h2>Education</h2>
-
-    <div class="edu-item">
-      <div class="title">Bachelor of Pharmacy</div>
-      <div class="inst">Shambhunath Institute of Pharmacy, Prayagraj</div>
-      <div class="year">2025 – 2029</div>
-    </div>
-
-    <div class="edu-item">
-      <div class="title">Diploma in Computer Applications, Business Accounting & Multilingual DTP</div>
-      <div class="inst">NCPUL – NIELIT (Govt. of India)</div>
-      <div class="year">Completed 2025 • Grade B</div>
-    </div>
-
-    <div class="edu-item">
-      <div class="title">Class 12 (ISC)</div>
-      <div class="inst">CISCE</div>
-      <div class="year">2025</div>
-    </div>
-
-    <div class="edu-item">
-      <div class="title">Class 10 (ICSE)</div>
-      <div class="inst">CISCE</div>
-      <div class="year">2023</div>
-    </div>
-  </section>
-
-  <footer>&copy; <span id="year"></span> Mohd Shahnawaz</footer>
-
 </div>
+
+<footer>© <span id="year"></span> Mohd Shahnawaz</footer>
 
 <script>
   /* Theme toggle */
-  const themeToggle=document.getElementById('themeToggle');
-  const themeIcon=document.getElementById('themeIcon');
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
 
   function applyTheme(t){
-    if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');themeIcon.className='fa-solid fa-sun';}
-    else{document.documentElement.removeAttribute('data-theme');themeIcon.className='fa-solid fa-moon';}
+    if(t==="dark"){document.documentElement.setAttribute("data-theme","dark");themeIcon.className="fa-solid fa-sun";}
+    else{document.documentElement.removeAttribute("data-theme");themeIcon.className="fa-solid fa-moon";}
   }
 
-  const saved=localStorage.getItem('theme');
-  applyTheme(saved||'light');
+  const savedTheme = localStorage.getItem("theme") || "light";
+  applyTheme(savedTheme);
 
-  themeToggle.addEventListener('click',()=>{
-    const dark=document.documentElement.getAttribute('data-theme')==='dark';
-    const newTheme=dark?'light':'dark';
+  themeToggle.addEventListener("click", () => {
+    const dark = document.documentElement.getAttribute("data-theme")==="dark";
+    const newTheme = dark ? "light" : "dark";
     applyTheme(newTheme);
-    localStorage.setItem('theme',newTheme);
+    localStorage.setItem("theme", newTheme);
   });
 
-  /* Scroll reveal animation */
-  const revealEls=document.querySelectorAll('.reveal');
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-  },{threshold:0.1});
-  revealEls.forEach(el=>io.observe(el));
+  /* Reveal animation */
+  const revealEls = document.querySelectorAll(".reveal");
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+      }
+    });
+  }, {threshold:0.2});
+  revealEls.forEach(el=>observer.observe(el));
 
-  /* Avatar enlarge */
-  const avatar=document.getElementById('avatar');
-  avatar.addEventListener('click',()=>avatar.classList.toggle('enlarged'));
-
-  /* Avatar parallax */
-  window.addEventListener('scroll',()=>{
-    let y=window.scrollY*0.04;
-    avatar.style.setProperty('--py', y+'px');
-  });
-
-  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
-        </html>
+                                                                                                                         </html>
