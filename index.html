@@ -19,6 +19,7 @@
       --accent:#0b74ff;
       --radius:14px;
       --shadow:0 8px 24px rgba(15,23,42,0.06);
+      --fade: opacity .6s ease, transform .6s ease;
     }
     [data-theme="dark"] {
       --bg:#0b1220;
@@ -29,125 +30,160 @@
       --shadow:0 10px 30px rgba(2,6,23,0.6);
     }
 
-    * {box-sizing:border-box;margin:0;padding:0}
+    * {margin:0;padding:0;box-sizing:border-box;}
+
     body {
       font-family:'Inter',sans-serif;
       background:var(--bg);
       color:var(--text);
       line-height:1.6;
-      transition:background .35s ease,color .35s ease;
-      padding-bottom:60px;
+      opacity:0;
+      animation:fadePage .7s ease forwards;
+      transition:background .35s ease, color .35s ease;
     }
-    .container {max-width:1000px;margin:36px auto;padding:28px;}
+    @keyframes fadePage {to {opacity:1;}}
+
+    .container {max-width:1000px;margin:40px auto;padding:28px;}
 
     /* Header */
-    .site-header {display:flex;flex-direction:column;align-items:center;margin-bottom:28px;text-align:center;gap:12px;}
-
-    .avatar {
-      width:120px;height:120px;border-radius:50%;overflow:hidden;
-      background: radial-gradient(circle at center, rgba(0,153,255,0.25), rgba(0,0,0,0.15));
-      box-shadow:0 0 25px rgba(0,153,255,0.3);
-      margin:16px auto;cursor:pointer;
-      display:flex;align-items:center;justify-content:center;
-      transition:transform 0.6s ease;
+    .site-header {
+      display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:34px;
     }
-    .avatar img {width:110%;height:110%;object-fit:cover;border-radius:50%;}
-    .avatar:hover img {transform:scale(1.05);}
-    .avatar.enlarged {transform:scale(1.35);margin-top:40px;}
+
+    /* Avatar — premium version */
+    .avatar {
+      width:140px;height:140px;border-radius:50%;overflow:hidden;
+      position:relative;
+      cursor:pointer;
+      transition:transform .6s ease;
+    }
+    .avatar::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:50%;
+      background:radial-gradient(circle at center, rgba(0,153,255,0.25), transparent 75%);
+      filter:blur(12px);
+      z-index:-1;
+      animation:glow 4s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from {transform:scale(1);}
+      to {transform:scale(1.08);}
+    }
+    .avatar img {
+      width:100%;height:100%;object-fit:cover;
+      transition:transform .5s ease;
+    }
+    .avatar:hover img {transform:scale(1.06);}
+    .avatar.enlarged {transform:scale(1.35);}
+
+    /* Parallax */
+    .avatar.parallax {transform:translateY(var(--py));}
 
     .name-title {
-      font-size:26px;font-weight:800;
+      font-size:28px;font-weight:900;margin-top:14px;
       background:linear-gradient(90deg,var(--accent),#00b4ff);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
     }
-    .tagline {color:var(--muted);font-size:14px;font-weight:500;}
+    .tagline {color:var(--muted);font-size:15px;margin-top:4px;}
 
     /* Theme Toggle */
     .theme-toggle {
       position:fixed;top:18px;right:18px;width:46px;height:46px;
-      border-radius:50%;background:var(--card);border:none;
+      background:var(--card);border:none;border-radius:50%;
       box-shadow:var(--shadow);cursor:pointer;display:grid;place-items:center;
+      transition:transform .25s ease, background .35s ease;
       z-index:999;
     }
-    .theme-toggle:hover {transform:scale(1.1);}
+    .theme-toggle:hover {transform:scale(1.12);}
 
-    /* Cards */
+    /* Card */
     .card {
-      background:var(--card);
-      border-radius:var(--radius);
-      padding:20px;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(0,0,0,0.03);
-      margin-bottom:24px;
+      background:var(--card);border-radius:var(--radius);padding:22px;
+      box-shadow:var(--shadow);margin-bottom:28px;
+      border:1px solid rgba(0,0,0,0.04);
+      opacity:0;transform:translateY(20px);
+      transition:var(--fade);
     }
+    .card.visible {opacity:1;transform:translateY(0);}
 
-    /* Skills Grid */
+    /* Skills */
     .skills-grid {display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
     .skill {
-      min-width:120px;
-      display:flex;gap:10px;align-items:center;
-      padding:10px 12px;border-radius:10px;
-      background:rgba(15,23,42,0.04);
+      min-width:120px;padding:10px 12px;border-radius:10px;
+      background:rgba(15,23,42,0.04);display:flex;gap:10px;align-items:center;
+      transition:transform .25s ease, box-shadow .25s ease;
     }
-    [data-theme="dark"] .skill {background:rgba(255,255,255,0.04);}
-    .skill .name {font-size:14px;font-weight:600;}
+    .skill:hover {
+      transform:translateY(-6px);
+      box-shadow:0 6px 20px rgba(0,0,0,0.1);
+    }
 
     /* Projects */
-    .section-title {display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-    .projects-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
-    .project-card {
-      padding:16px;border-radius:12px;
-      background:rgba(255,255,255,0.02);
-      border:1px solid rgba(0,0,0,0.04);
+    .projects-grid {
+      display:grid;grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+      gap:16px;
     }
-    .project-card h3 {font-size:15px;}
-    .project-card p {font-size:13px;color:var(--muted);}
+    .project-card {
+      padding:18px;border-radius:12px;background:rgba(255,255,255,0.03);
+      border:1px solid rgba(0,0,0,0.05);
+      transition:transform .3s ease, box-shadow .3s ease;
+    }
+    .project-card:hover {
+      transform:translateY(-10px);
+      box-shadow:0 12px 32px rgba(0,0,0,0.12);
+    }
+    .project-card p {font-size:14px;color:var(--muted);}
 
     .btn {
-      padding:8px 12px;border-radius:10px;
-      border:1.5px solid var(--accent);color:var(--accent);
-      font-weight:600;font-size:13px;text-decoration:none;
-      display:inline-flex;align-items:center;gap:8px;
+      margin-top:8px;padding:8px 12px;border-radius:10px;
+      border:1.5px solid var(--accent);
+      color:var(--accent);font-weight:600;font-size:13px;
+      text-decoration:none;
+      transition:background .25s ease, color .25s ease;
     }
     .btn:hover {background:var(--accent);color:#fff;}
 
     /* Contact */
-    #contact a {color: var(--text);text-decoration: none;font-weight: 500;}
-    #contact a:hover {color: var(--accent);text-decoration: underline;}
-
     .socials {display:flex;gap:10px;margin-top:12px;}
-    .socials a {width:40px;height:40px;border-radius:8px;display:grid;place-items:center;text-decoration:none;color:var(--accent);}
+    .socials a {
+      width:42px;height:42px;border-radius:10px;display:grid;place-items:center;
+      text-decoration:none;
+      background:rgba(15,23,42,0.06);
+      color:var(--accent);
+      transition:transform .25s ease;
+    }
+    .socials a:hover {transform:translateY(-6px);}
 
     /* Education */
-    .edu-item {margin-bottom:12px;}
-    .edu-item .title {font-weight:700;font-size:15px;}
+    .edu-item {margin-bottom:14px;}
+    .edu-item .title {font-weight:700;font-size:16px;}
     .edu-item .inst {font-size:14px;color:var(--muted);}
     .edu-item .year {font-size:13px;color:var(--accent);margin-top:3px;}
 
-    footer {text-align:center;color:var(--muted);font-size:13px;margin-top:32px;}
+    footer {text-align:center;color:var(--muted);margin-top:40px;font-size:13px;}
   </style>
 </head>
 <body>
 
-<!-- Theme Toggle -->
 <button id="themeToggle" class="theme-toggle"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
 
 <div class="container">
 
   <!-- Header -->
   <header class="site-header">
-    <div class="avatar"><img src="photo.png" alt="Profile Photo"></div>
+    <div class="avatar" id="avatar"><img src="photo.png" /></div>
     <h1 class="name-title">Mohd Shahnawaz</h1>
     <p class="tagline">B.Pharm Student • Web Developer (Hobbyist)</p>
   </header>
 
   <!-- Intro -->
-  <section class="card">
+  <section class="card reveal">
     <p>
-      I’m Mohd Shahnawaz, a B.Pharm student at Shambhunath Institute of Pharmacy, Prayagraj (2025–2029).
+      I’m Mohd Shahnawaz, a B.Pharm student at Shambhunath Institute of Pharmacy (2025–2029).
       I enjoy building small web projects and exploring how technology can make everyday tasks easier.
-      Pharmacy is my main path, but coding, interfaces, and AI tools make me curious. Creating things
-      — even simple tools — helps me grow and mix both fields in a meaningful way.
+      Pharmacy is my main path, but coding, interfaces, and AI tools inspire me creatively.
     </p>
 
     <div style="margin-top:14px;font-size:13px;color:var(--muted);">Skills</div>
@@ -165,7 +201,7 @@
   </section>
 
   <!-- Contact -->
-  <aside class="card" id="contact">
+  <section class="card reveal" id="contact">
     <strong>Contact</strong>
     <div style="margin-top:10px;">
       <div><i class="fa-solid fa-envelope"></i> <a href="mailto:szcamps@gmail.com">szcamps@gmail.com</a></div>
@@ -179,30 +215,27 @@
       <a href="https://www.instagram.com/Shahnawaz._.2006/"><i class="fa-brands fa-instagram"></i></a>
       <a href="http://telegram.me/Sukuna_Verified"><i class="fa-brands fa-telegram"></i></a>
     </div>
-  </aside>
+  </section>
 
   <!-- Projects -->
-  <section class="card">
-    <div class="section-title">
-      <h2>Projects</h2>
-      <div style="font-size:13px;color:var(--muted);">Selected Work</div>
-    </div>
+  <section class="card reveal">
+    <h2>Projects</h2>
 
     <div class="projects-grid">
 
       <article class="project-card">
         <h3>Number & Aadhaar Details Finder</h3>
         <p>A simple learning tool that displays number and Aadhaar-related information. Built to practice logic, form handling, and UI fundamentals.</p>
-        <div><a class="btn" href="https://szkhan7860.github.io/details" target="_blank">Visit</a></div>
+        <a class="btn" href="https://szkhan7860.github.io/details" target="_blank">Visit</a>
       </article>
 
       <article class="project-card">
         <h3>Pharmatech AI</h3>
         <p>A small pharmaceutical web app that lets users search for medicines and explore their details. An early experiment combining pharmacy and web development.</p>
-        <div><a class="btn" href="https://71a9e4b5-de93-457c-b390-8053a1ff2411-00-3q0l7iekoo76u.sisko.replit.dev/" target="_blank">Visit</a></div>
+        <a class="btn" href="#" target="_blank">Visit</a>
       </article>
 
-      <article class="project-card" style="opacity:0.8;">
+      <article class="project-card">
         <h3>More Coming Soon</h3>
         <p>New projects will be added here.</p>
       </article>
@@ -211,7 +244,7 @@
   </section>
 
   <!-- Education -->
-  <section class="card">
+  <section class="card reveal">
     <h2>Education</h2>
 
     <div class="edu-item">
@@ -228,47 +261,60 @@
 
     <div class="edu-item">
       <div class="title">Class 12 (ISC)</div>
-      <div class="inst">Council for the Indian School Certificate Examinations</div>
+      <div class="inst">CISCE</div>
       <div class="year">2025</div>
     </div>
 
     <div class="edu-item">
       <div class="title">Class 10 (ICSE)</div>
-      <div class="inst">Council for the Indian School Certificate Examinations</div>
+      <div class="inst">CISCE</div>
       <div class="year">2023</div>
     </div>
-
   </section>
 
   <footer>&copy; <span id="year"></span> Mohd Shahnawaz</footer>
+
 </div>
 
 <script>
-  // Theme Toggle
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
+  /* Theme toggle */
+  const themeToggle=document.getElementById('themeToggle');
+  const themeIcon=document.getElementById('themeIcon');
 
-  function applyTheme(theme){
-    if(theme==='dark'){
-      document.documentElement.setAttribute('data-theme','dark');
-      themeIcon.className='fa-solid fa-sun';
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-      themeIcon.className='fa-solid fa-moon';
-    }
+  function applyTheme(t){
+    if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');themeIcon.className='fa-solid fa-sun';}
+    else{document.documentElement.removeAttribute('data-theme');themeIcon.className='fa-solid fa-moon';}
   }
 
-  const saved = localStorage.getItem('portfolio-theme');
-  applyTheme(saved || 'light');
+  const saved=localStorage.getItem('theme');
+  applyTheme(saved||'light');
 
-  themeToggle.addEventListener('click', () => {
-    const isDark = document.documentElement.getAttribute('data-theme')==='dark';
-    applyTheme(isDark ? 'light' : 'dark');
-    localStorage.setItem('portfolio-theme', isDark ? 'light' : 'dark');
+  themeToggle.addEventListener('click',()=>{
+    const dark=document.documentElement.getAttribute('data-theme')==='dark';
+    const newTheme=dark?'light':'dark';
+    applyTheme(newTheme);
+    localStorage.setItem('theme',newTheme);
+  });
+
+  /* Scroll reveal animation */
+  const revealEls=document.querySelectorAll('.reveal');
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.1});
+  revealEls.forEach(el=>io.observe(el));
+
+  /* Avatar enlarge */
+  const avatar=document.getElementById('avatar');
+  avatar.addEventListener('click',()=>avatar.classList.toggle('enlarged'));
+
+  /* Avatar parallax */
+  window.addEventListener('scroll',()=>{
+    let y=window.scrollY*0.04;
+    avatar.style.setProperty('--py', y+'px');
   });
 
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
 </body>
-  </html>
+        </html>
