@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Portfolio of Mohd Shahnawaz — B.Pharm student with a passion for web development and creative digital projects." />
+  <title>Mohd Shahnawaz — Portfolio</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg:#ffffff;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --text:#0f172a;
+      --accent:#0b74ff;
+      --radius:14px;
+      --shadow:0 8px 24px rgba(15,23,42,0.06);
+    }
+    [data-theme="dark"] {
+      --bg:#0b1220;
+      --card:#0f172a;
+      --muted:#9aa6b2;
+      --text:#e6eef8;
+      --accent:#4da6ff;
+      --shadow:0 10px 30px rgba(2,6,23,0.6);
+    }
+
+    * {box-sizing:border-box;margin:0;padding:0}
+    body {
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      transition:background .35s ease,color .35s ease;
+      padding-bottom:60px;
+    }
+    .container {max-width:1000px;margin:36px auto;padding:28px;}
+
+    /* Header */
+    .site-header {display:flex;flex-direction:column;align-items:center;margin-bottom:28px;text-align:center;gap:12px;}
+
+    .avatar {
+      width:120px;height:120px;border-radius:50%;overflow:hidden;
+      background: radial-gradient(circle at center, rgba(0,153,255,0.25), rgba(0,0,0,0.15));
+      box-shadow:0 0 25px rgba(0,153,255,0.3);
+      margin:16px auto;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:transform 0.6s ease;
+    }
+    .avatar img {width:110%;height:110%;object-fit:cover;border-radius:50%;}
+    .avatar:hover img {transform:scale(1.05);}
+    .avatar.enlarged {transform:scale(1.35);margin-top:40px;}
+
+    .name-title {
+      font-size:26px;font-weight:800;
+      background:linear-gradient(90deg,var(--accent),#00b4ff);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .tagline {color:var(--muted);font-size:14px;font-weight:500;}
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position:fixed;top:18px;right:18px;width:46px;height:46px;
+      border-radius:50%;background:var(--card);border:none;
+      box-shadow:var(--shadow);cursor:pointer;display:grid;place-items:center;
+      z-index:999;
+    }
+    .theme-toggle:hover {transform:scale(1.1);}
+
+    /* Cards */
+    .card {
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(0,0,0,0.03);
+      margin-bottom:24px;
+    }
+
+    /* Skills Grid */
+    .skills-grid {display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+    .skill {
+      min-width:120px;
+      display:flex;gap:10px;align-items:center;
+      padding:10px 12px;border-radius:10px;
+      background:rgba(15,23,42,0.04);
+    }
+    [data-theme="dark"] .skill {background:rgba(255,255,255,0.04);}
+    .skill .name {font-size:14px;font-weight:600;}
+
+    /* Projects */
+    .section-title {display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+    .projects-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+    .project-card {
+      padding:16px;border-radius:12px;
+      background:rgba(255,255,255,0.02);
+      border:1px solid rgba(0,0,0,0.04);
+    }
+    .project-card h3 {font-size:15px;}
+    .project-card p {font-size:13px;color:var(--muted);}
+
+    .btn {
+      padding:8px 12px;border-radius:10px;
+      border:1.5px solid var(--accent);color:var(--accent);
+      font-weight:600;font-size:13px;text-decoration:none;
+      display:inline-flex;align-items:center;gap:8px;
+    }
+    .btn:hover {background:var(--accent);color:#fff;}
+
+    /* Contact */
+    #contact a {color: var(--text);text-decoration: none;font-weight: 500;}
+    #contact a:hover {color: var(--accent);text-decoration: underline;}
+
+    .socials {display:flex;gap:10px;margin-top:12px;}
+    .socials a {width:40px;height:40px;border-radius:8px;display:grid;place-items:center;text-decoration:none;color:var(--accent);}
+
+    /* Education */
+    .edu-item {margin-bottom:12px;}
+    .edu-item .title {font-weight:700;font-size:15px;}
+    .edu-item .inst {font-size:14px;color:var(--muted);}
+    .edu-item .year {font-size:13px;color:var(--accent);margin-top:3px;}
+
+    footer {text-align:center;color:var(--muted);font-size:13px;margin-top:32px;}
+  </style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button id="themeToggle" class="theme-toggle"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
+
+<div class="container">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="avatar"><img src="photo.png" alt="Profile Photo"></div>
+    <h1 class="name-title">Mohd Shahnawaz</h1>
+    <p class="tagline">B.Pharm Student • Web Developer (Hobbyist)</p>
+  </header>
+
+  <!-- Intro -->
+  <section class="card">
+    <p>
+      I’m Mohd Shahnawaz, a B.Pharm student at Shambhunath Institute of Pharmacy, Prayagraj (2025–2029).
+      I enjoy building small web projects and exploring how technology can make everyday tasks easier.
+      Pharmacy is my main path, but coding, interfaces, and AI tools make me curious. Creating things
+      — even simple tools — helps me grow and mix both fields in a meaningful way.
+    </p>
+
+    <div style="margin-top:14px;font-size:13px;color:var(--muted);">Skills</div>
+
+    <div class="skills-grid">
+      <div class="skill"><i class="fa-brands fa-html5" style="color:#e34c26;"></i><div class="name">HTML</div></div>
+      <div class="skill"><i class="fa-brands fa-css3-alt" style="color:#2965f1;"></i><div class="name">CSS</div></div>
+      <div class="skill"><i class="fa-brands fa-js" style="color:#f7df1e;"></i><div class="name">JavaScript</div></div>
+      <div class="skill"><i class="fa-brands fa-react" style="color:#61dafb;"></i><div class="name">React (Basic)</div></div>
+      <div class="skill"><i class="fa-brands fa-github"></i><div class="name">GitHub</div></div>
+      <div class="skill"><i class="fa-solid fa-database"></i><div class="name">Tally & Accounting</div></div>
+      <div class="skill"><i class="fa-solid fa-robot"></i><div class="name">AI & Python (Basics)</div></div>
+      <div class="skill"><i class="fa-solid fa-language"></i><div class="name">DTP & Documentation</div></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <aside class="card" id="contact">
+    <strong>Contact</strong>
+    <div style="margin-top:10px;">
+      <div><i class="fa-solid fa-envelope"></i> <a href="mailto:szcamps@gmail.com">szcamps@gmail.com</a></div>
+      <div><i class="fa-brands fa-github"></i> <a href="https://github.com/szkhan7860" target="_blank">github.com/szkhan7860</a></div>
+      <div><i class="fa-brands fa-instagram"></i> <a href="https://www.instagram.com/Shahnawaz._.2006/" target="_blank">@Shahnawaz._.2006</a></div>
+      <div><i class="fa-brands fa-telegram"></i> <a href="http://telegram.me/Sukuna_Verified" target="_blank">Sukuna_Verified</a></div>
+    </div>
+
+    <div class="socials">
+      <a href="https://github.com/szkhan7860"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.instagram.com/Shahnawaz._.2006/"><i class="fa-brands fa-instagram"></i></a>
+      <a href="http://telegram.me/Sukuna_Verified"><i class="fa-brands fa-telegram"></i></a>
+    </div>
+  </aside>
+
+  <!-- Projects -->
+  <section class="card">
+    <div class="section-title">
+      <h2>Projects</h2>
+      <div style="font-size:13px;color:var(--muted);">Selected Work</div>
+    </div>
+
+    <div class="projects-grid">
+
+      <article class="project-card">
+        <h3>Number & Aadhaar Details Finder</h3>
+        <p>A simple learning tool that displays number and Aadhaar-related information. Built to practice logic, form handling, and UI fundamentals.</p>
+        <div><a class="btn" href="https://szkhan7860.github.io/details" target="_blank">Visit</a></div>
+      </article>
+
+      <article class="project-card">
+        <h3>Pharmatech AI</h3>
+        <p>A small pharmaceutical web app that lets users search for medicines and explore their details. An early experiment combining pharmacy and web development.</p>
+        <div><a class="btn" href="https://71a9e4b5-de93-457c-b390-8053a1ff2411-00-3q0l7iekoo76u.sisko.replit.dev/" target="_blank">Visit</a></div>
+      </article>
+
+      <article class="project-card" style="opacity:0.8;">
+        <h3>More Coming Soon</h3>
+        <p>New projects will be added here.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="card">
+    <h2>Education</h2>
+
+    <div class="edu-item">
+      <div class="title">Bachelor of Pharmacy</div>
+      <div class="inst">Shambhunath Institute of Pharmacy, Prayagraj</div>
+      <div class="year">2025 – 2029</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="title">Diploma in Computer Applications, Business Accounting & Multilingual DTP</div>
+      <div class="inst">NCPUL – NIELIT (Govt. of India)</div>
+      <div class="year">Completed 2025 • Grade B</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="title">Class 12 (ISC)</div>
+      <div class="inst">Council for the Indian School Certificate Examinations</div>
+      <div class="year">2025</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="title">Class 10 (ICSE)</div>
+      <div class="inst">Council for the Indian School Certificate Examinations</div>
+      <div class="year">2023</div>
+    </div>
+
+  </section>
+
+  <footer>&copy; <span id="year"></span> Mohd Shahnawaz</footer>
+</div>
+
+<script>
+  // Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+
+  function applyTheme(theme){
+    if(theme==='dark'){
+      document.documentElement.setAttribute('data-theme','dark');
+      themeIcon.className='fa-solid fa-sun';
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      themeIcon.className='fa-solid fa-moon';
+    }
+  }
+
+  const saved = localStorage.getItem('portfolio-theme');
+  applyTheme(saved || 'light');
+
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme')==='dark';
+    applyTheme(isDark ? 'light' : 'dark');
+    localStorage.setItem('portfolio-theme', isDark ? 'light' : 'dark');
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+  </html>
